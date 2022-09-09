@@ -34,34 +34,38 @@ class Item extends React.Component {
   }
 
   render() {
-    if (!this.props.item) {
+    const { item } =  this.props;
+
+    if (!item) {
       return null;
     }
 
+    const imgPath = item.image || '/placeholder.png';
+
     const markup = {
-      __html: marked(this.props.item.description, { sanitize: true }),
+      __html: marked(item.description, { sanitize: true }),
     };
     const canModify =
       this.props.currentUser &&
-      this.props.currentUser.username === this.props.item.seller.username;
+      this.props.currentUser.username === item.seller.username;
     return (
       <div className="container page">
         <div className="text-dark">
           <div className="row bg-white p-4">
             <div className="col-6">
               <img
-                src={this.props.item.image}
-                alt={this.props.item.title}
+                src={imgPath}
+                alt={item.title}
                 className="item-img"
                 style={{ height: "500px", width: "100%", borderRadius: "6px" }}
               />
             </div>
 
             <div className="col-6">
-              <h1>{this.props.item.title}</h1>
-              <ItemMeta item={this.props.item} canModify={canModify} />
+              <h1>{item.title}</h1>
+              <ItemMeta item={item} canModify={canModify} />
               <div dangerouslySetInnerHTML={markup}></div>
-              {this.props.item.tagList.map((tag) => {
+              {item.tagList.map((tag) => {
                 return (
                   <span className="badge badge-secondary p-2 mx-1" key={tag}>
                     {tag}
