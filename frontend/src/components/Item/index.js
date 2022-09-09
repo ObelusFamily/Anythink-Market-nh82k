@@ -34,13 +34,13 @@ class Item extends React.Component {
   }
 
   render() {
-    const { item } =  this.props;
+    const { item } = this.props;
 
     if (!item) {
       return null;
     }
 
-    const imgPath = item.image || '/placeholder.png';
+    const imgPath = item.image || "/placeholder.png";
 
     const markup = {
       __html: marked(item.description, { sanitize: true }),
